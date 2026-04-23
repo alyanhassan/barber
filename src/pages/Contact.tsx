@@ -397,9 +397,11 @@ export function Contact() {
             <p className="text-sm text-text-primary/80 leading-relaxed font-light">
               123 Precision Way, South Bank, London SE1 7PB
             </p>
-          </div>
         </div>
+        </motion.div>
       </section>
+
+      {/* FAQ SECTION */}
 
       {/* FAQ SECTION */}
       <section className="py-32 px-6">
