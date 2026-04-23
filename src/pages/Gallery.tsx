@@ -95,9 +95,20 @@ export function Gallery() {
             <BreadcrumbRight size={12} />
             <span className="text-primary">Gallery</span>
           </nav>
-          <h1 className="text-5xl md:text-7xl font-black font-heading mb-4 italic">
+          <motion.h1 
+            initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
+            animate={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-5xl md:text-7xl font-black font-heading mb-4 italic"
+          >
             OUR <span className="text-primary relative inline-block">WORK<span className="absolute bottom-2 left-0 w-full h-2 bg-primary/20 -z-10" /></span>
-          </h1>
+          </motion.h1>
+          <motion.div 
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+            className="w-20 h-1 bg-primary mx-auto mb-6 origin-center" 
+          />
           <p className="text-text-muted uppercase tracking-[0.4em] text-xs">Every cut tells a story</p>
         </div>
       </section>
@@ -132,24 +143,38 @@ export function Gallery() {
                 <motion.div
                   key={img.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.4 }}
                   className="relative group cursor-pointer overflow-hidden rounded-2xl bg-surface-100 break-inside-avoid"
                   onClick={() => openLightbox(index)}
+                  whileHover="hover"
                 >
-                  <img
+                  <motion.img
                     src={img.url}
                     alt={img.alt}
-                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-auto object-cover"
+                    variants={{
+                      hover: { scale: 1.08, transition: { duration: 0.6, ease: "easeOut" } }
+                    }}
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-[#0A0A0A]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
-                    <Maximize2 className="text-primary mb-4" size={24} />
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-primary font-bold mb-2">{img.category}</span>
-                    <p className="text-white font-heading italic text-lg">{img.barber}</p>
-                  </div>
+                  <motion.div 
+                    className="absolute inset-0 bg-[#0A0A0A]/70 flex flex-col items-center justify-center p-6 text-center pointer-events-none"
+                    initial={{ clipPath: "inset(100% 0 0 0)" }}
+                    variants={{
+                      hover: { clipPath: "inset(0% 0 0 0)", transition: { duration: 0.4, ease: "easeOut" } }
+                    }}
+                  >
+                    <motion.div 
+                      className="translate-y-8 group-hover:translate-y-0 transition-transform duration-500 delay-100"
+                    >
+                      <Maximize2 className="text-primary mb-4 mx-auto" size={24} />
+                      <span className="text-[10px] uppercase tracking-[0.3em] text-primary font-bold mb-2 block">{img.category}</span>
+                      <p className="text-white font-heading italic text-lg">{img.barber}</p>
+                    </motion.div>
+                  </motion.div>
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -160,8 +185,25 @@ export function Gallery() {
       {/* BEFORE & AFTER SECTION */}
       <section className="py-32 px-6 bg-surface-100">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-6xl font-heading font-black mb-6 italic tracking-tighter uppercase">THE <span className="text-gradient-gold">TRANSFORMATION</span></h2>
+          <div className="text-center mb-20 flex flex-col items-center">
+            <motion.div className="overflow-hidden pb-2 mb-6">
+              <motion.h2 
+                initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
+                whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="text-4xl md:text-6xl font-heading font-black italic tracking-tighter uppercase"
+              >
+                THE <span className="text-gradient-gold">TRANSFORMATION</span>
+              </motion.h2>
+            </motion.div>
+            <motion.div 
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              className="w-32 h-[1px] bg-[#C9A84C] mx-auto origin-center mb-6" 
+            />
             <p className="text-text-muted uppercase tracking-[0.4em] text-xs">Visual proof of our craft</p>
           </div>
 

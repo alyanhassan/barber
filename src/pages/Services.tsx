@@ -98,9 +98,14 @@ export function Services() {
             <ChevronRight size={12} />
             <span className="text-primary">Services</span>
           </nav>
-          <h1 className="text-5xl md:text-7xl font-black font-heading text-gradient-gold mb-6 uppercase tracking-tighter">
+          <motion.h1 
+            initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
+            animate={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-5xl md:text-7xl font-black font-heading text-gradient-gold mb-6 uppercase tracking-tighter"
+          >
             OUR SERVICES
-          </h1>
+          </motion.h1>
           <p className="text-lg text-text-primary/70 font-light tracking-wide max-w-xl mx-auto">
             Crafted with precision, tailored for you. Explore our full menu of grooming rituals.
           </p>
@@ -161,10 +166,11 @@ export function Services() {
                     {svc.description}
                   </p>
 
-                  <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+                  <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between relative z-10">
                     <span className="text-2xl font-bold text-primary font-heading">{svc.price}</span>
-                    <Link to="/contact" className="px-6 py-2 bg-transparent border border-primary/30 text-primary text-[10px] font-bold uppercase tracking-widest rounded-lg hover:bg-primary hover:text-background hover:border-primary transition-all duration-300">
+                    <Link to="/contact" className="px-6 py-2 bg-transparent border border-primary/30 text-primary text-[10px] font-bold uppercase tracking-widest rounded-lg hover:bg-primary hover:text-background hover:border-primary transition-all duration-300 relative overflow-hidden group/btn">
                       Book Now
+                      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]" />
                     </Link>
                   </div>
                 </motion.div>
@@ -175,8 +181,24 @@ export function Services() {
           {/* PRICING TABLE SECTION */}
           <div className="mt-32">
             <div className="mb-12">
-              <h2 className="text-3xl font-heading font-black italic mb-4 uppercase">PRICING OVERVIEW</h2>
-              <div className="w-20 h-1 bg-primary" />
+              <motion.div className="overflow-hidden pb-2 mb-4">
+                <motion.h2 
+                  initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
+                  whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className="text-3xl font-heading font-black italic uppercase"
+                >
+                  PRICING OVERVIEW
+                </motion.h2>
+              </motion.div>
+              <motion.div 
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+                className="w-20 h-1 bg-primary origin-left" 
+              />
             </div>
 
             <div className="glass-card overflow-hidden">
@@ -217,8 +239,25 @@ export function Services() {
       {/* PROCESS SECTION: HOW IT WORKS */}
       <section className="py-32 px-6 bg-[#0A0A0A]">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-6xl font-heading font-black mb-6 italic tracking-tighter">THE EXPERIENCE</h2>
+          <div className="text-center mb-20 flex flex-col items-center">
+            <motion.div className="overflow-hidden pb-2 mb-6">
+              <motion.h2 
+                initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
+                whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="text-4xl md:text-6xl font-heading font-black italic tracking-tighter"
+              >
+                THE EXPERIENCE
+              </motion.h2>
+            </motion.div>
+            <motion.div 
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              className="w-32 h-[1px] bg-[#C9A84C] mx-auto origin-center mb-6" 
+            />
             <p className="text-text-muted uppercase tracking-[0.4em] text-xs">Four Steps to Perfection</p>
           </div>
 

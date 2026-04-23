@@ -16,6 +16,42 @@ import {
 } from 'lucide-react';
 import { Meta } from '../components/seo/Meta';
 import { BARBERS } from '../data';
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { ReviewCard } from '../components/ui/ReviewCard';
+
+const CountUpStat = ({ value, suffix = "", label, icon: Icon }: { value: number; suffix?: string; label: string; icon: any }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (isInView) {
+      let start = 0;
+      const end = value;
+      const duration = 2000;
+      const increment = end / (duration / 16);
+
+      const timer = setInterval(() => {
+        start += increment;
+        if (start >= end) {
+          setCount(end);
+          clearInterval(timer);
+        } else {
+          setCount(Math.floor(start));
+        }
+      }, 16);
+      return () => clearInterval(timer);
+    }
+  }, [isInView, value]);
+
+  return (
+    <div ref={ref} className="flex items-center gap-4">
+      <div className="w-10 h-10 glass rounded-full flex items-center justify-center text-primary"><Icon size={18} /></div>
+      <div><p className="text-lg font-bold font-heading">{count}{suffix}</p><p className="text-[9px] uppercase tracking-widest text-text-muted">{label}</p></div>
+    </div>
+  );
+};
 
 const SkillBar = ({ name, level }: { name: string; level: number }) => {
   return (
@@ -99,43 +135,60 @@ export function BarberDetail() {
             </Link>
 
             <div className="flex flex-col md:flex-row items-center md:items-end gap-10 mb-12">
-              <div className="w-40 h-40 md:w-56 md:h-56 rounded-full border-4 border-primary overflow-hidden shadow-3xl flex-shrink-0">
-                <img src={barber.image} className="w-full h-full object-cover" alt={barber.name} />
+              <div className="relative w-40 h-40 md:w-56 md:h-56 flex-shrink-0 group">
+                <svg className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none z-10" viewBox="0 0 100 100">
+                  <motion.circle
+                    cx="50" cy="50" r="48"
+                    fill="none" stroke="#C9A84C" strokeWidth="2"
+                    strokeDasharray="301"
+                    initial={{ strokeDashoffset: 301 }}
+                    animate={{ strokeDashoffset: 0 }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                  />
+                </svg>
+                <div className="w-full h-full rounded-full overflow-hidden shadow-3xl p-1.5 bg-background">
+                  <div className="w-full h-full rounded-full overflow-hidden relative">
+                    <img src={barber.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={barber.name} />
+                  </div>
+                </div>
               </div>
               <div className="text-center md:text-left">
                 <span className="bg-primary text-background text-[10px] font-black uppercase tracking-[0.3em] px-4 py-1.5 rounded-full mb-4 inline-block shadow-xl">
                   {barber.role}
                 </span>
-                <h1 className="text-5xl md:text-8xl font-black font-heading mb-6 italic tracking-tighter leading-none">
-                  {barber.name}
+                <h1 className="text-5xl md:text-8xl font-black font-heading mb-6 italic tracking-tighter leading-none flex flex-wrap justify-center md:justify-start">
+                  {barber.name.split('').map((char, index) => (
+                    <motion.span
+                      key={index}
+                      initial={{ opacity: 0, y: 50 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.05 }}
+                    >
+                      {char === ' ' ? '\u00A0' : char}
+                    </motion.span>
+                  ))}
                 </h1>
                 <div className="flex flex-wrap justify-center md:justify-start gap-3">
-                  {barber.specialties.map(spec => (
-                    <span key={spec} className="glass px-4 py-1.5 rounded-lg text-[10px] uppercase font-bold text-text-muted border border-white/5">
+                  {barber.specialties.map((spec, index) => (
+                    <motion.span 
+                      key={spec} 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 + 0.5 }}
+                      className="glass px-4 py-1.5 rounded-lg text-[10px] uppercase font-bold text-text-muted border border-white/5"
+                    >
                       {spec}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
               </div>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl border-t border-white/10 pt-10">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 glass rounded-full flex items-center justify-center text-primary"><Users size={18} /></div>
-                <div><p className="text-lg font-bold font-heading">{barber.clientsServed}+</p><p className="text-[9px] uppercase tracking-widest text-text-muted">Clients</p></div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 glass rounded-full flex items-center justify-center text-primary"><Award size={18} /></div>
-                <div><p className="text-lg font-bold font-heading">{barber.yearsExp}</p><p className="text-[9px] uppercase tracking-widest text-text-muted">Years Exp</p></div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 glass rounded-full flex items-center justify-center text-primary"><Star size={18} /></div>
-                <div><p className="text-lg font-bold font-heading">{barber.rating}</p><p className="text-[9px] uppercase tracking-widest text-text-muted">Rating</p></div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 glass rounded-full flex items-center justify-center text-primary"><Trophy size={18} /></div>
-                <div><p className="text-lg font-bold font-heading">{barber.awards}</p><p className="text-[9px] uppercase tracking-widest text-text-muted">Awards</p></div>
-              </div>
+              <CountUpStat value={barber.clientsServed} suffix="+" label="Clients" icon={Users} />
+              <CountUpStat value={barber.yearsExp} label="Years Exp" icon={Award} />
+              <CountUpStat value={barber.rating} label="Rating" icon={Star} />
+              <CountUpStat value={barber.awards} label="Awards" icon={Trophy} />
             </div>
 
             <div className="mt-12 flex justify-center md:justify-start">
@@ -166,7 +219,17 @@ export function BarberDetail() {
           >
             <div>
               <span className="text-primary text-[10px] uppercase font-bold tracking-[0.4em] mb-4 block">Identity</span>
-              <h2 className="text-4xl md:text-6xl font-heading font-black italic uppercase tracking-tighter">MY STORY</h2>
+              <motion.div className="overflow-hidden pb-2">
+                <motion.h2 
+                  initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
+                  whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className="text-4xl md:text-6xl font-heading font-black italic uppercase tracking-tighter"
+                >
+                  MY STORY
+                </motion.h2>
+              </motion.div>
             </div>
             <p className="text-lg text-text-muted leading-relaxed font-light italic">
               {barber.story}
@@ -278,32 +341,37 @@ export function BarberDetail() {
       {/* SECTION 6: CLIENT REVIEWS */}
       <section className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-24">
-            <h2 className="text-4xl md:text-6xl font-heading font-black italic mb-6 tracking-tighter uppercase text-gradient-gold">CLIENT ECHOES</h2>
-            <div className="w-20 h-[1px] bg-white/10 mx-auto" />
+          <div className="text-center mb-24 flex flex-col items-center">
+            <motion.div className="overflow-hidden pb-2 mb-6">
+              <motion.h2 
+                initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
+                whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="text-4xl md:text-6xl font-heading font-black italic tracking-tighter uppercase text-gradient-gold"
+              >
+                CLIENT ECHOES
+              </motion.h2>
+            </motion.div>
+            <motion.div 
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              className="w-20 h-[1px] bg-white/10 mx-auto origin-center" 
+            />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {barber.testimonials.map((t, i) => (
-              <motion.div
+              <ReviewCard
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="glass-card p-10 relative"
-              >
-                <div className="flex text-primary mb-8 gap-0.5">
-                  {[...Array(t.rating)].map((_, j) => <Star key={j} size={16} fill="currentColor" />)}
-                </div>
-                <blockquote className="text-lg text-text-primary/90 italic leading-relaxed mb-10">
-                  "{t.review}"
-                </blockquote>
-                <div className="flex justify-between items-center border-t border-white/5 pt-8">
-                  <span className="text-xs uppercase tracking-widest font-bold text-white">{t.name}</span>
-                  <span className="text-[10px] uppercase font-mono text-text-muted">{t.date}</span>
-                </div>
-              </motion.div>
+                name={t.name}
+                review={t.review}
+                rating={t.rating}
+                date={t.date}
+                delay={i * 0.2}
+              />
             ))}
           </div>
         </div>
@@ -350,8 +418,16 @@ export function BarberDetail() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {otherBarbers.map((b) => (
               <Link key={b.id} to={`/barber/${b.id}`} className="group glass-card p-6 block hover:border-primary/40 transition-all duration-500">
-                <div className="aspect-[3/4] rounded-2xl overflow-hidden mb-6">
-                  <img src={b.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt={b.name} />
+                <div className="aspect-[3/4] rounded-2xl overflow-hidden mb-6 relative">
+                  <img src={b.image} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700" alt={b.name} />
+                  <motion.img 
+                    src={b.coverImage} 
+                    alt={`${b.name} working`} 
+                    className="absolute inset-0 w-full h-full object-cover"
+                    initial={{ x: "100%" }}
+                    whileHover={{ x: "0%" }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                  />
                 </div>
                 <h4 className="text-xl font-heading font-black italic mb-1 group-hover:text-primary transition-colors uppercase">{b.name}</h4>
                 <p className="text-[10px] uppercase font-bold text-text-muted tracking-widest">{b.role}</p>

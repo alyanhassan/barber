@@ -12,7 +12,8 @@ import {
   Briefcase
 } from 'lucide-react';
 import { Meta } from '../components/seo/Meta';
-import { BARBERS } from '../data';
+import { BARBERS, TESTIMONIALS } from '../data';
+import { ReviewCard } from '../components/ui/ReviewCard';
 
 // --- CountUp Component ---
 const CountUpStat = ({ value, suffix = "", label, icon: Icon }: { value: number; suffix?: string; label: string; icon: any }) => {
@@ -100,9 +101,20 @@ export function Team() {
             <ChevronRight size={12} />
             <span className="text-primary">Team</span>
           </nav>
-          <h1 className="text-5xl md:text-7xl font-black font-heading text-white mb-4 italic tracking-tighter uppercase">
+          <motion.h1 
+            initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
+            animate={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-5xl md:text-7xl font-black font-heading text-white mb-4 italic tracking-tighter uppercase"
+          >
             THE ARTISTS BEHIND <br /> <span className="text-gradient-gold">THE CHAIR</span>
-          </h1>
+          </motion.h1>
+          <motion.div 
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+            className="w-20 h-1 bg-primary mx-auto mb-6 origin-center" 
+          />
           <p className="text-text-muted uppercase tracking-[0.4em] text-xs">Meet our expert barbers</p>
         </div>
       </section>
@@ -148,7 +160,15 @@ export function Team() {
                     <img
                       src={barber.image}
                       alt={barber.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700"
+                    />
+                    <motion.img 
+                      src={barber.coverImage} 
+                      alt={`${barber.name} working`} 
+                      className="absolute inset-0 w-full h-full object-cover"
+                      initial={{ x: "100%" }}
+                      whileHover={{ x: "0%" }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
                     />
                     <div className="absolute top-6 left-6 z-10">
                       <span className="bg-primary text-background text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded shadow-lg">
@@ -233,6 +253,36 @@ export function Team() {
           <CountUpStat value={4} label="Specialists" icon={Trophy} />
           <CountUpStat value={5000} suffix="+" label="Clients Served" icon={Users} />
           <CountUpStat value={20} suffix="+" label="Awards Won" icon={Award} />
+        </div>
+      </section>
+
+      {/* REVIEWS SECTION */}
+      <section className="py-32 px-6 bg-[#0A0A0A] relative overflow-hidden">
+        <div className="max-w-7xl mx-auto relative z-10 text-center">
+          <motion.div className="overflow-hidden pb-2 mb-16">
+            <motion.h2 
+              initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
+              whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-4xl md:text-6xl font-heading font-black italic"
+            >
+              CLIENT REVIEWS
+            </motion.h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 text-left max-w-5xl mx-auto">
+            {TESTIMONIALS.map((testimonial, i) => (
+              <ReviewCard
+                key={testimonial.id}
+                name={testimonial.name}
+                review={testimonial.content}
+                rating={testimonial.rating}
+                date={testimonial.date}
+                delay={i * 0.2}
+              />
+            ))}
+          </div>
         </div>
       </section>
 

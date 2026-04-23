@@ -132,9 +132,14 @@ export function Contact() {
             <ChevronRight size={12} />
             <span className="text-primary">Contact</span>
           </nav>
-          <h1 className="text-5xl md:text-7xl font-black font-heading mb-4 italic uppercase tracking-tighter">
+          <motion.h1 
+            initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
+            animate={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-5xl md:text-7xl font-black font-heading mb-4 italic uppercase tracking-tighter"
+          >
             GET IN <span className="text-primary">TOUCH</span>
-          </h1>
+          </motion.h1>
           <p className="text-text-muted uppercase tracking-[0.4em] text-xs">We'd love to hear from you</p>
         </div>
       </section>
@@ -145,7 +150,17 @@ export function Contact() {
 
           {/* LEFT: FORM */}
           <div>
-            <h2 className="text-3xl font-heading font-black italic mb-12 uppercase tracking-tighter">SEND US A MESSAGE</h2>
+            <motion.div className="overflow-hidden pb-2 mb-12">
+              <motion.h2 
+                initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
+                whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="text-3xl font-heading font-black italic uppercase tracking-tighter"
+              >
+                SEND US A MESSAGE
+              </motion.h2>
+            </motion.div>
 
             <AnimatePresence mode="wait">
               {isSuccess ? (
@@ -173,13 +188,17 @@ export function Contact() {
                 </motion.div>
               ) : (
                 <motion.form
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={{
+                    visible: { transition: { staggerChildren: 0.1 } },
+                    hidden: {}
+                  }}
                   onSubmit={handleSubmit}
                   className="space-y-8"
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
                       <label className="text-[10px] uppercase font-bold tracking-widest text-text-muted ml-1">Full Name</label>
                       <input
@@ -202,9 +221,9 @@ export function Contact() {
                       />
                       {errors.email && <p className="text-red-500 text-[10px] uppercase ml-1">{errors.email}</p>}
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
                       <label className="text-[10px] uppercase font-bold tracking-widest text-text-muted ml-1">Phone Number</label>
                       <input
@@ -228,9 +247,9 @@ export function Contact() {
                       </select>
                       {errors.service && <p className="text-red-500 text-[10px] uppercase ml-1">{errors.service}</p>}
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <div className="space-y-2">
+                  <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="space-y-2">
                     <label className="text-[10px] uppercase font-bold tracking-widest text-text-muted ml-1">Preferred Date</label>
                     <input
                       type="date"
@@ -239,9 +258,9 @@ export function Contact() {
                       className={`w-full bg-[#111] border ${errors.date ? 'border-red-500' : 'border-white/10'} focus:border-primary px-6 py-4 rounded-xl transition-all outline-none text-sm inverted-calendar`}
                     />
                     {errors.date && <p className="text-red-500 text-[10px] uppercase ml-1">{errors.date}</p>}
-                  </div>
+                  </motion.div>
 
-                  <div className="space-y-2">
+                  <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="space-y-2">
                     <label className="text-[10px] uppercase font-bold tracking-widest text-text-muted ml-1">Your Message</label>
                     <textarea
                       rows={4}
@@ -251,15 +270,16 @@ export function Contact() {
                       placeholder="How can we help you?"
                     />
                     {errors.message && <p className="text-red-500 text-[10px] uppercase ml-1">{errors.message}</p>}
-                  </div>
+                  </motion.div>
 
-                  <button
+                  <motion.button
+                    variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
                     type="submit"
                     disabled={isSubmitting}
                     className="w-full btn-primary py-5 rounded-2xl flex items-center justify-center gap-3 disabled:opacity-50"
                   >
                     {isSubmitting ? <><Loader2 className="animate-spin" size={20} /> Processing...</> : 'Send Message'}
-                  </button>
+                  </motion.button>
                 </motion.form>
               )}
             </AnimatePresence>
@@ -268,7 +288,17 @@ export function Contact() {
           {/* RIGHT: INFO */}
           <div className="space-y-16">
             <div className="space-y-10">
-              <h2 className="text-3xl font-heading font-black italic uppercase tracking-tighter">VISIT US</h2>
+              <motion.div className="overflow-hidden pb-2">
+                <motion.h2 
+                  initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
+                  whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className="text-3xl font-heading font-black italic uppercase tracking-tighter"
+                >
+                  VISIT US
+                </motion.h2>
+              </motion.div>
               <div className="space-y-8">
                 <a href="#map" className="flex items-start gap-6 group">
                   <div className="w-12 h-12 glass rounded-xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
@@ -301,7 +331,17 @@ export function Contact() {
             </div>
 
             <div className="space-y-10">
-              <h2 className="text-3xl font-heading font-black italic uppercase tracking-tighter">OPENING HOURS</h2>
+              <motion.div className="overflow-hidden pb-2">
+                <motion.h2 
+                  initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
+                  whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className="text-3xl font-heading font-black italic uppercase tracking-tighter"
+                >
+                  OPENING HOURS
+                </motion.h2>
+              </motion.div>
               <div className="glass-card overflow-hidden">
                 <table className="w-full text-left">
                   <tbody>
@@ -331,7 +371,13 @@ export function Contact() {
 
       {/* MAP SECTION */}
       <section id="map" className="px-6 py-20 bg-surface-100">
-        <div className="max-w-7xl mx-auto rounded-[3rem] overflow-hidden glass h-[500px] relative">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="max-w-7xl mx-auto rounded-[3rem] overflow-hidden glass h-[500px] relative"
+        >
           <div className="absolute inset-0 z-0">
             <iframe
               width="100%"
@@ -358,11 +404,25 @@ export function Contact() {
       {/* FAQ SECTION */}
       <section className="py-32 px-6">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-24">
-            <h2 className="text-4xl md:text-6xl font-heading font-black mb-6 italic tracking-tighter uppercase leading-none">
-              FREQUENTLY ASKED <span className="text-gradient-gold text-white">QUESTIONS</span>
-            </h2>
-            <div className="w-24 h-1 bg-primary mx-auto" />
+          <div className="text-center mb-24 flex flex-col items-center">
+            <motion.div className="overflow-hidden pb-2 mb-6">
+              <motion.h2 
+                initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
+                whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="text-4xl md:text-6xl font-heading font-black italic tracking-tighter uppercase leading-none"
+              >
+                FREQUENTLY ASKED <span className="text-gradient-gold text-white">QUESTIONS</span>
+              </motion.h2>
+            </motion.div>
+            <motion.div 
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              className="w-24 h-1 bg-primary mx-auto origin-center" 
+            />
           </div>
 
           <div className="space-y-6">
