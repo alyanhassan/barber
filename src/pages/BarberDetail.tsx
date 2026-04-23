@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useParams, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import {
   Star,
   Users,
@@ -8,9 +8,9 @@ import {
   Award,
   ArrowLeft,
   Scissors,
-  Shield,
+
   Zap,
-  Maximize2,
+
   Camera,
   Share2
 } from 'lucide-react';
@@ -75,7 +75,7 @@ const SkillBar = ({ name, level }: { name: string; level: number }) => {
 
 export function BarberDetail() {
   const { id } = useParams();
-  const navigate = useNavigate();
+
   const barber = BARBERS.find(b => b.id === id);
   const otherBarbers = BARBERS.filter(b => b.id !== id).slice(0, 3);
 
@@ -170,8 +170,8 @@ export function BarberDetail() {
                 </h1>
                 <div className="flex flex-wrap justify-center md:justify-start gap-3">
                   {barber.specialties.map((spec, index) => (
-                    <motion.span 
-                      key={spec} 
+                    <motion.span
+                      key={spec}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 + 0.5 }}
@@ -220,7 +220,7 @@ export function BarberDetail() {
             <div>
               <span className="text-primary text-[10px] uppercase font-bold tracking-[0.4em] mb-4 block">Identity</span>
               <motion.div className="overflow-hidden pb-2">
-                <motion.h2 
+                <motion.h2
                   initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
                   whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
@@ -343,7 +343,7 @@ export function BarberDetail() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-24 flex flex-col items-center">
             <motion.div className="overflow-hidden pb-2 mb-6">
-              <motion.h2 
+              <motion.h2
                 initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
                 whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -353,12 +353,12 @@ export function BarberDetail() {
                 CLIENT ECHOES
               </motion.h2>
             </motion.div>
-            <motion.div 
+            <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="w-20 h-[1px] bg-white/10 mx-auto origin-center" 
+              className="w-20 h-[1px] bg-white/10 mx-auto origin-center"
             />
           </div>
 
@@ -420,9 +420,9 @@ export function BarberDetail() {
               <Link key={b.id} to={`/barber/${b.id}`} className="group glass-card p-6 block hover:border-primary/40 transition-all duration-500">
                 <div className="aspect-[3/4] rounded-2xl overflow-hidden mb-6 relative">
                   <img src={b.image} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700" alt={b.name} />
-                  <motion.img 
-                    src={b.coverImage} 
-                    alt={`${b.name} working`} 
+                  <motion.img
+                    src={b.coverImage}
+                    alt={`${b.name} working`}
                     className="absolute inset-0 w-full h-full object-cover"
                     initial={{ x: "100%" }}
                     whileHover={{ x: "0%" }}

@@ -8,7 +8,7 @@ import {
   Shield,
   Coffee,
   CheckCircle2,
-  ArrowRight,
+  
   ChevronRight,
   Zap
 } from 'lucide-react';

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   ChevronDown,
@@ -11,7 +12,7 @@ import {
   Scissors,
   Zap,
   Shield,
-  Maximize2
+
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -67,15 +68,10 @@ const StatCounter = ({ value, label, suffix = "" }: { value: number, label: stri
 };
 
 export function Home() {
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
+
 
   // Auto-advance testimonials
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveTestimonial((prev) => (prev + 1) % TESTIMONIALS.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
+
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -118,7 +114,7 @@ export function Home() {
           />
           <div className="absolute inset-0 bg-[#0A0A0A]/70" />
           {/* Animated Gold Grain Overlay */}
-          <div 
+          <div
             className="absolute inset-0 z-[1] pointer-events-none opacity-[0.03]"
             style={{
               backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")',
@@ -173,7 +169,7 @@ export function Home() {
               Explore Our Work
             </Link>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -204,9 +200,9 @@ export function Home() {
             transition={{ duration: 0.8 }}
           >
             <span className="text-primary uppercase tracking-[0.4em] font-bold text-xs mb-4 block">Legacy</span>
-            
+
             <motion.div className="overflow-hidden">
-              <motion.h2 
+              <motion.h2
                 initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
                 whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -216,15 +212,15 @@ export function Home() {
                 OUR STORY
               </motion.h2>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="w-20 h-1 bg-primary mb-8 origin-left" 
+              className="w-20 h-1 bg-primary mb-8 origin-left"
             />
-            
+
             <FadeUp delay={0.4}>
               <p className="text-text-muted leading-relaxed text-lg mb-12">
                 Born from a passion for traditional craftsmanship, Blade & Co. has stood as a bastion of grooming excellence for over a decade. We believe every cut is a signature, and every client is family.
@@ -261,7 +257,7 @@ export function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20 flex flex-col items-center">
             <motion.div className="overflow-hidden pb-2">
-              <motion.h2 
+              <motion.h2
                 initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
                 whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -271,12 +267,12 @@ export function Home() {
                 WHAT WE OFFER
               </motion.h2>
             </motion.div>
-            <motion.div 
+            <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="w-20 h-1 bg-primary mb-6 origin-center" 
+              className="w-20 h-1 bg-primary mb-6 origin-center"
             />
             <p className="text-text-muted uppercase tracking-[0.3em] text-xs">Curated Grooming Excellence</p>
           </div>
@@ -333,7 +329,7 @@ export function Home() {
             <div>
               <span className="text-primary uppercase tracking-[0.4em] font-bold text-xs mb-4 block">Lookbook</span>
               <motion.div className="overflow-hidden pb-2">
-                <motion.h2 
+                <motion.h2
                   initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
                   whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
@@ -343,12 +339,12 @@ export function Home() {
                   OUR WORK
                 </motion.h2>
               </motion.div>
-              <motion.div 
+              <motion.div
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-                className="w-20 h-1 bg-primary mt-6 origin-left" 
+                className="w-20 h-1 bg-primary mt-6 origin-left"
               />
             </div>
             <Link to="/gallery" className="btn-outline">
@@ -388,13 +384,13 @@ export function Home() {
                     whileHover={{ scale: 1.08 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                   />
-                  <motion.div 
+                  <motion.div
                     className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center pointer-events-none"
                     initial={{ clipPath: "inset(100% 0 0 0)" }}
                     whileHover={{ clipPath: "inset(0% 0 0 0)" }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                   >
-                    <motion.div 
+                    <motion.div
                       className="text-center translate-y-8 group-hover:translate-y-0 transition-transform duration-500 delay-100"
                     >
                       <span className="text-primary font-bold tracking-widest uppercase text-xs mb-2 block">{img.category}</span>
@@ -413,7 +409,7 @@ export function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-24 flex flex-col items-center">
             <motion.div className="overflow-hidden pb-2">
-              <motion.h2 
+              <motion.h2
                 initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
                 whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -423,12 +419,12 @@ export function Home() {
                 MEET THE BARBERS
               </motion.h2>
             </motion.div>
-            <motion.div 
+            <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="w-32 h-[1px] bg-[#C9A84C] mx-auto origin-center" 
+              className="w-32 h-[1px] bg-[#C9A84C] mx-auto origin-center"
             />
           </div>
 
@@ -454,18 +450,18 @@ export function Home() {
                   {/* Front Image */}
                   <img src={barber.image} alt={barber.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700" />
                   {/* Second/Hover Image */}
-                  <motion.img 
-                    src={barber.coverImage} 
-                    alt={`${barber.name} working`} 
+                  <motion.img
+                    src={barber.coverImage}
+                    alt={`${barber.name} working`}
                     className="absolute inset-0 w-full h-full object-cover"
                     initial={{ x: "100%" }}
                     whileHover={{ x: "0%" }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
                   />
                 </div>
-                
+
                 <div className="relative overflow-hidden h-8 mb-1">
-                  <motion.h3 
+                  <motion.h3
                     className="text-xl font-bold font-heading absolute bottom-0 left-0"
                     initial={{ y: 20, opacity: 0 }}
                     whileHover={{ y: 0, opacity: 1 }}
@@ -477,15 +473,15 @@ export function Home() {
 
                 <div className="overflow-hidden flex flex-wrap gap-2 mb-4 h-6">
                   {barber.specialties.map((spec, i) => (
-                    <motion.span 
+                    <motion.span
                       key={spec}
                       className="text-[10px] uppercase tracking-widest text-primary font-bold bg-primary/5 px-2 py-1 rounded inline-block origin-left"
                       initial={{ x: -20, opacity: 0 }}
                       whileHover={{ x: 0, opacity: 1 }}
                       transition={{ delay: i * 0.1, duration: 0.3 }}
-                      // Make them always visible, but on hover they slide slightly? 
-                      // "Specialty tags slide in from left one by one on hover" -> means they are hidden until hover?
-                      // I will hide them initially in the group, and show on hover.
+                    // Make them always visible, but on hover they slide slightly? 
+                    // "Specialty tags slide in from left one by one on hover" -> means they are hidden until hover?
+                    // I will hide them initially in the group, and show on hover.
                     >
                       {spec}
                     </motion.span>
@@ -498,7 +494,7 @@ export function Home() {
                 <div className="flex text-primary gap-1 mb-8 opacity-60">
                   <Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" />
                 </div>
-                
+
                 <div className="mt-auto grid grid-cols-2 gap-4 pt-4 overflow-hidden">
                   <motion.div
                     initial={{ y: 50, opacity: 0 }}
@@ -542,7 +538,7 @@ export function Home() {
 
         <div className="max-w-7xl mx-auto relative z-10 text-center">
           <motion.div className="overflow-hidden pb-2 mb-16">
-            <motion.h2 
+            <motion.h2
               initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
               whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
