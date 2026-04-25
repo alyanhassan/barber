@@ -27,8 +27,8 @@ export const BARBERS: Barber[] = [
     role: 'Founder & Master Barber',
     bio: 'With over 15 years in the craft, Marcus blends traditional techniques with modern aesthetic precision.',
     story: 'Marcus began his journey in a small traditional shop in East London. Over the years, he developed a unique philosophy: that every haircut is a signature on a living canvas. He founded Blade & Co to restore the ritual of the barbershop experience.',
-    image: 'https://images.unsplash.com/photo-1503460293676-48cf00ae1f5d?q=80&w=800&auto=format&fit=crop',
-    coverImage: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2000&auto=format&fit=crop',
+    image: '/images/marcus.png',
+    coverImage: '/images/cover.png',
     specialties: ['Classic Cut', 'Hot Towel Shave', 'Bespoke Grooming'],
     socials: { instagram: '@marcusvane' },
     yearsExp: 15,
@@ -47,9 +47,9 @@ export const BARBERS: Barber[] = [
       { year: '2020', role: 'Founder', place: 'Blade & Co.', description: 'Established our flagship shop to bring back the ritual.' }
     ],
     gallery: [
-      { url: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=800&auto=format&fit=crop', category: 'Fades', description: 'Classic mid-skin fade.' },
-      { url: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800&auto=format&fit=crop', category: 'Classic Cuts', description: 'Side part pompadour.' },
-      { url: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=800&auto=format&fit=crop', category: 'Beard', description: 'Straight razor shave.' }
+      { url: '/images/haircut.png', category: 'Fades', description: 'Classic mid-skin fade.' },
+      { url: '/images/haircut.png', category: 'Classic Cuts', description: 'Side part pompadour.' },
+      { url: '/images/haircut.png', category: 'Beard', description: 'Straight razor shave.' }
     ],
     testimonials: [
       { name: 'James T.', review: 'The best shave I have ever had. Marcus is a true gentleman and an artist.', rating: 5, date: 'Oct 2023' },
@@ -62,8 +62,8 @@ export const BARBERS: Barber[] = [
     role: 'Senior Stylist',
     bio: 'Specializing in contemporary fades and texturing, Elias is the architect of sharp, modern profiles.',
     story: 'Elias believes that hair is the ultimate form of self-expression. His background in urban street style informs his precision work, making him the go-to for the modern London man.',
-    image: 'https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=800&auto=format&fit=crop',
-    coverImage: 'https://images.unsplash.com/photo-1512690196160-7c96dc68e12d?q=80&w=2000&auto=format&fit=crop',
+    image: '/images/elias.png',
+    coverImage: '/images/cover.png',
     specialties: ['Skin Fade', 'Modern Quiff', 'Beard Sculpting'],
     socials: { instagram: '@eliasblair' },
     yearsExp: 8,
@@ -81,8 +81,8 @@ export const BARBERS: Barber[] = [
       { year: '2021', role: 'Senior Stylist', place: 'Blade & Co.', description: 'Brought urban precision to our premium environment.' }
     ],
     gallery: [
-      { url: 'https://images.unsplash.com/photo-1512690196160-7c96dc68e12d?q=80&w=800&auto=format&fit=crop', category: 'Fades', description: 'High bald fade.' },
-      { url: 'https://images.unsplash.com/photo-1599351431247-f10bc135f306?q=80&w=800&auto=format&fit=crop', category: 'Texture', description: 'Messy crop.' }
+      { url: '/images/haircut.png', category: 'Fades', description: 'High bald fade.' },
+      { url: '/images/haircut.png', category: 'Texture', description: 'Messy crop.' }
     ],
     testimonials: [
       { name: 'Tom H.', review: 'Elias does the cleanest fades in London. Guaranteed.', rating: 5, date: 'Dec 2023' }
@@ -94,8 +94,8 @@ export const BARBERS: Barber[] = [
     role: 'Precision Expert',
     bio: 'A master of the straight razor and meticulous detailing, Julian ensures every edge is a masterpiece.',
     story: 'Julian\'s attention to detail is legendary. He views every client through a lens of geometry and balance, ensuring that your cut doesn\'t just look good, it complements your identity.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop',
-    coverImage: 'https://images.unsplash.com/photo-1593702295094-1725e7b8c340?q=80&w=2000&auto=format&fit=crop',
+    image: '/images/julian.png',
+    coverImage: '/images/cover.png',
     specialties: ['Straight Razor Shave', 'Detailing', 'Head Shaves'],
     socials: { instagram: '@julianross' },
     yearsExp: 12,
@@ -113,7 +113,7 @@ export const BARBERS: Barber[] = [
       { year: '2018', role: 'Specialist', place: 'Blade & Co.', description: 'The detailing expert of our team.' }
     ],
     gallery: [
-      { url: 'https://images.unsplash.com/photo-1593702295094-1725e7b8c340?q=80&w=800&auto=format&fit=crop', category: 'Beard', description: 'Sculpted beard.' }
+      { url: '/images/haircut.png', category: 'Beard', description: 'Sculpted beard.' }
     ],
     testimonials: [
       { name: 'David W.', review: 'Julian is a perfectionist. I wouldn\'t trust anyone else with my beard.', rating: 5, date: 'Jan 2024' }
@@ -125,8 +125,8 @@ export const BARBERS: Barber[] = [
     role: 'Texture Specialist',
     bio: 'Stefan brings a creative eye to natural textures and long-form men’s styling.',
     story: 'With a background in fashion editorial work, Stefan understands movement. He specializes in longer styles and natural curls, giving his clients a look that grows in perfectly.',
-    image: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=800&auto=format&fit=crop',
-    coverImage: 'https://images.unsplash.com/photo-1582897243242-d698f244fac1?q=80&w=2000&auto=format&fit=crop',
+    image: '/images/stefan.png',
+    coverImage: '/images/cover.png',
     specialties: ['Natural Texture', 'Long Layering', 'Beard Conditioning'],
     socials: { instagram: '@stefangray', tiktok: '@stefan_styles' },
     yearsExp: 6,
@@ -144,7 +144,7 @@ export const BARBERS: Barber[] = [
       { year: '2022', role: 'Stylist', place: 'Blade & Co.', description: 'Our specialist for natural movement and length.' }
     ],
     gallery: [
-      { url: 'https://images.unsplash.com/photo-1582897243242-d698f244fac1?q=80&w=800&auto=format&fit=crop', category: 'Color', description: 'Long layered color.' }
+      { url: '/images/haircut.png', category: 'Color', description: 'Long layered color.' }
     ],
     testimonials: [
       { name: 'Michael R.', review: 'Stefan really understood what I wanted for my curly hair. Brilliant.', rating: 5, date: 'Feb 2024' }
@@ -269,26 +269,26 @@ export const TESTIMONIALS: Testimonial[] = [
 ];
 
 export const GALLERY_IMAGES: GalleryImage[] = [
-  { id: 'g1', url: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=800&auto=format&fit=crop', alt: 'Precision skin fade', category: 'Fades', barber: 'Marcus Vane', description: 'A sharp, clean mid-skin fade with a textured top.' },
-  { id: 'g2', url: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800&auto=format&fit=crop', alt: 'Gentleman classic cut', category: 'Classic Cuts', barber: 'Elias Blair', description: 'Traditional scissor cut with natural flow and side part.' },
-  { id: 'g3', url: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=800&auto=format&fit=crop', alt: 'Full beard grooming', category: 'Beard', barber: 'Julian Ross', description: 'Sculpted beard with sharp razor lines and conditioning ritual.' },
-  { id: 'g4', url: 'https://images.unsplash.com/photo-1599351431247-f10bc135f306?q=80&w=800&auto=format&fit=crop', alt: 'Textured quiff', category: 'Texture', barber: 'Stefan Gray', description: 'Modern voluminous quiff focusing on natural texture and movement.' },
-  { id: 'g5', url: 'https://images.unsplash.com/photo-1605497746444-ac966376f803?q=80&w=800&auto=format&fit=crop', alt: 'Platinum gray blend', category: 'Color', barber: 'Elias Blair', description: 'Seamless gray blending for a natural silver aesthetic.' },
-  { id: 'g6', url: 'https://images.unsplash.com/photo-1512690196160-7c96dc68e12d?q=80&w=800&auto=format&fit=crop', alt: 'High drop fade', category: 'Fades', barber: 'Marcus Vane', description: 'Crisp drop fade with a sharp lineup.' },
-  { id: 'g7', url: 'https://images.unsplash.com/photo-1593702295094-1725e7b8c340?q=80&w=800&auto=format&fit=crop', alt: 'Beard and skin fade combo', category: 'Beard', barber: 'Julian Ross', description: 'Total transformation: Low fade transitioning into a sculpted beard.' },
-  { id: 'g8', url: 'https://images.unsplash.com/photo-1532710093739-9470acff878f?q=80&w=800&auto=format&fit=crop', alt: 'Classic side part', category: 'Classic Cuts', barber: 'Marcus Vane', description: 'Timeless professional style with a clean taper.' },
-  { id: 'g9', url: 'https://images.unsplash.com/photo-1582897243242-d698f244fac1?q=80&w=800&auto=format&fit=crop', alt: 'Bold indigo color', category: 'Color', barber: 'Stefan Gray', description: 'Creative full color treatment with deep vibrancy.' },
-  { id: 'g10', url: 'https://images.unsplash.com/photo-1517865330663-875f68bba636?q=80&w=800&auto=format&fit=crop', alt: 'Pompadour texture', category: 'Texture', barber: 'Julian Ross', description: 'Classic pomp updated with contemporary texture.' },
-  { id: 'g11', url: 'https://images.unsplash.com/photo-1592647425447-db8118179c14?q=80&w=800&auto=format&fit=crop', alt: 'Low skin fade', category: 'Fades', barber: 'Elias Blair', description: 'Meticulous low skin taper for a clean finish.' },
-  { id: 'g12', url: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?q=80&w=800&auto=format&fit=crop', alt: 'Long trim classic', category: 'Classic Cuts', barber: 'Stefan Gray', description: 'Shear-only long length maintenance for natural flow.' },
-  { id: 'g13', url: 'https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=800&auto=format&fit=crop', alt: 'Short beard trim', category: 'Beard', barber: 'Marcus Vane', description: 'Keeping it professional: Short stubble sculpt and edge.' },
-  { id: 'g14', url: 'https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=800&auto=format&fit=crop', alt: 'Messy crop texture', category: 'Texture', barber: 'Julian Ross', description: 'Effortless morning look with heavy texturing.' },
-  { id: 'g15', url: 'https://images.unsplash.com/photo-1493106819501-66d381c466f1?q=80&w=800&auto=format&fit=crop', alt: 'Tapered classic', category: 'Classic Cuts', barber: 'Elias Blair', description: 'Modern take on a 1950s classic taper.' },
-  { id: 'g16', url: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=800&auto=format&fit=crop', alt: 'High bald fade', category: 'Fades', barber: 'Julian Ross', description: 'Zero-effort high fade for maximum cleanliness.' },
-  { id: 'g17', url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop', alt: 'Vibrant highlight', category: 'Color', barber: 'Stefan Gray', description: 'Sun-kissed effect with precision foil highlights.' },
-  { id: 'g18', url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800&auto=format&fit=crop', alt: 'Beard ritual detail', category: 'Beard', barber: 'Marcus Vane', description: 'Traditional straight razor detailing on full beard.' },
-  { id: 'g19', url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800&auto=format&fit=crop', alt: 'Spiky texture', category: 'Texture', barber: 'Elias Blair', description: 'Sharp spikes with high-hold finish.' },
-  { id: 'g20', url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop', alt: 'Business classic', category: 'Classic Cuts', barber: 'Julian Ross', description: 'The executive: conservative but perfectly finished.' },
+  { id: 'g1', url: '/images/haircut.png', alt: 'Precision skin fade', category: 'Fades', barber: 'Marcus Vane', description: 'A sharp, clean mid-skin fade with a textured top.' },
+  { id: 'g2', url: '/images/haircut.png', alt: 'Gentleman classic cut', category: 'Classic Cuts', barber: 'Elias Blair', description: 'Traditional scissor cut with natural flow and side part.' },
+  { id: 'g3', url: '/images/haircut.png', alt: 'Full beard grooming', category: 'Beard', barber: 'Julian Ross', description: 'Sculpted beard with sharp razor lines and conditioning ritual.' },
+  { id: 'g4', url: '/images/haircut.png', alt: 'Textured quiff', category: 'Texture', barber: 'Stefan Gray', description: 'Modern voluminous quiff focusing on natural texture and movement.' },
+  { id: 'g5', url: '/images/haircut.png', alt: 'Platinum gray blend', category: 'Color', barber: 'Elias Blair', description: 'Seamless gray blending for a natural silver aesthetic.' },
+  { id: 'g6', url: '/images/haircut.png', alt: 'High drop fade', category: 'Fades', barber: 'Marcus Vane', description: 'Crisp drop fade with a sharp lineup.' },
+  { id: 'g7', url: '/images/haircut.png', alt: 'Beard and skin fade combo', category: 'Beard', barber: 'Julian Ross', description: 'Total transformation: Low fade transitioning into a sculpted beard.' },
+  { id: 'g8', url: '/images/haircut.png', alt: 'Classic side part', category: 'Classic Cuts', barber: 'Marcus Vane', description: 'Timeless professional style with a clean taper.' },
+  { id: 'g9', url: '/images/haircut.png', alt: 'Bold indigo color', category: 'Color', barber: 'Stefan Gray', description: 'Creative full color treatment with deep vibrancy.' },
+  { id: 'g10', url: '/images/haircut.png', alt: 'Pompadour texture', category: 'Texture', barber: 'Julian Ross', description: 'Classic pomp updated with contemporary texture.' },
+  { id: 'g11', url: '/images/haircut.png', alt: 'Low skin fade', category: 'Fades', barber: 'Elias Blair', description: 'Meticulous low skin taper for a clean finish.' },
+  { id: 'g12', url: '/images/haircut.png', alt: 'Long trim classic', category: 'Classic Cuts', barber: 'Stefan Gray', description: 'Shear-only long length maintenance for natural flow.' },
+  { id: 'g13', url: '/images/haircut.png', alt: 'Short beard trim', category: 'Beard', barber: 'Marcus Vane', description: 'Keeping it professional: Short stubble sculpt and edge.' },
+  { id: 'g14', url: '/images/haircut.png', alt: 'Messy crop texture', category: 'Texture', barber: 'Julian Ross', description: 'Effortless morning look with heavy texturing.' },
+  { id: 'g15', url: '/images/haircut.png', alt: 'Tapered classic', category: 'Classic Cuts', barber: 'Elias Blair', description: 'Modern take on a 1950s classic taper.' },
+  { id: 'g16', url: '/images/haircut.png', alt: 'High bald fade', category: 'Fades', barber: 'Julian Ross', description: 'Zero-effort high fade for maximum cleanliness.' },
+  { id: 'g17', url: '/images/haircut.png', alt: 'Vibrant highlight', category: 'Color', barber: 'Stefan Gray', description: 'Sun-kissed effect with precision foil highlights.' },
+  { id: 'g18', url: '/images/haircut.png', alt: 'Beard ritual detail', category: 'Beard', barber: 'Marcus Vane', description: 'Traditional straight razor detailing on full beard.' },
+  { id: 'g19', url: '/images/haircut.png', alt: 'Spiky texture', category: 'Texture', barber: 'Elias Blair', description: 'Sharp spikes with high-hold finish.' },
+  { id: 'g20', url: '/images/haircut.png', alt: 'Business classic', category: 'Classic Cuts', barber: 'Julian Ross', description: 'The executive: conservative but perfectly finished.' },
 ];
 
 export const FAQS = [

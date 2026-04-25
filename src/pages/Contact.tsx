@@ -124,7 +124,7 @@ export function Contact() {
       {/* PAGE HERO */}
       <section className="relative h-[40vh] flex items-center justify-center bg-[#0A0A0A] overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <img src="https://images.unsplash.com/photo-1517865330663-875f68bba636?q=80&w=2000&auto=format&fit=crop" className="w-full h-full object-cover" />
+          <img src="/images/cover.png" className="w-full h-full object-cover" />
         </div>
         <div className="relative z-10 text-center px-6">
           <nav className="flex justify-center items-center gap-2 text-xs uppercase tracking-widest text-text-muted mb-6">
@@ -145,7 +145,7 @@ export function Contact() {
       </section>
 
       {/* MAIN CONTENT */}
-      <section className="py-24 px-6 bg-background">
+      <section className="py-10 md:py-20 px-6 bg-background">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24">
 
           {/* LEFT: FORM */}
@@ -370,7 +370,7 @@ export function Contact() {
       </section>
 
       {/* MAP SECTION */}
-      <section id="map" className="px-6 py-20 bg-surface-100">
+      <section id="map" className="px-6 py-10 md:py-20 bg-surface-100">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -404,7 +404,7 @@ export function Contact() {
       {/* FAQ SECTION */}
 
       {/* FAQ SECTION */}
-      <section className="py-32 px-6">
+      <section className="py-10 md:py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-24 flex flex-col items-center">
             <motion.div className="overflow-hidden pb-2 mb-6">

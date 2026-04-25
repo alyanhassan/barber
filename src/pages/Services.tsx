@@ -86,7 +86,7 @@ export function Services() {
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-[#0A0A0A] to-transparent z-10" />
           <img
-            src="https://images.unsplash.com/photo-1512690196160-7c96dc68e12d?q=80&w=2000&auto=format&fit=crop"
+            src="/images/cover.png"
             alt="Services Backdrop"
             className="w-full h-full object-cover"
           />
@@ -113,7 +113,7 @@ export function Services() {
       </section>
 
       {/* SERVICES GRID & FILTER */}
-      <section className="py-24 px-6 bg-background">
+      <section className="py-10 md:py-20 px-6 bg-background">
         <div className="max-w-7xl mx-auto">
           {/* Filter Tabs */}
           <div className="flex flex-wrap justify-center gap-4 mb-20">
@@ -237,7 +237,7 @@ export function Services() {
       </section>
 
       {/* PROCESS SECTION: HOW IT WORKS */}
-      <section className="py-32 px-6 bg-[#0A0A0A]">
+      <section className="py-10 md:py-20 px-6 bg-[#0A0A0A]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20 flex flex-col items-center">
             <motion.div className="overflow-hidden pb-2 mb-6">

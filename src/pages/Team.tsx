@@ -90,7 +90,7 @@ export function Team() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent z-10" />
           <img
-            src="https://images.unsplash.com/photo-1599351431247-f10bc135f306?q=80&w=2000&auto=format&fit=crop"
+            src="/images/cover.png"
             className="w-full h-full object-cover opacity-30"
           />
         </div>
@@ -120,7 +120,7 @@ export function Team() {
       </section>
 
       {/* TEAM INTRO */}
-      <section className="py-24 px-6">
+      <section className="py-10 md:py-20 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xl md:text-2xl text-text-primary/80 font-light leading-relaxed mb-12 italic">
             "We aren't just cutting hair; we're crafting identities. Our team is a collective of master artisans dedicated to the fine ritual of male grooming."
@@ -136,7 +136,7 @@ export function Team() {
       </section>
 
       {/* BARBERS GRID */}
-      <section className="py-24 px-6 bg-surface-100">
+      <section className="py-10 md:py-20 px-6 bg-surface-100">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial="hidden"
@@ -257,7 +257,7 @@ export function Team() {
       </section>
 
       {/* REVIEWS SECTION */}
-      <section className="py-32 px-6 bg-[#0A0A0A] relative overflow-hidden">
+      <section className="py-10 md:py-20 px-6 bg-[#0A0A0A] relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10 text-center">
           <motion.div className="overflow-hidden pb-2 mb-16">
             <motion.h2 
@@ -287,7 +287,7 @@ export function Team() {
       </section>
 
       {/* JOIN US / HIRING SECTION */}
-      <section className="py-32 px-6">
+      <section className="py-10 md:py-20 px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { useInView } from 'framer-motion';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useInView, useScroll, useTransform } from 'framer-motion';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
@@ -12,7 +12,8 @@ import {
   Scissors,
   Zap,
   Shield,
-
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -22,7 +23,7 @@ function cn(...inputs: ClassValue[]) {
 }
 import { Meta } from '../components/seo/Meta';
 import { FadeUp } from '../components/ui/FadeUp';
-import { ReviewCard } from '../components/ui/ReviewCard';
+import { ShuffleCards } from '../components/ui/TestimonialCards';
 import {
   BARBERS,
   SERVICES,
@@ -68,16 +69,53 @@ const StatCounter = ({ value, label, suffix = "" }: { value: number, label: stri
 };
 
 export function Home() {
+  // --- Bidirectional Antigravity Scroll Animation ---
+  const setupScrollReveal = useCallback(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        } else {
+          entry.target.classList.remove('is-visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-up, .slide-left, .slide-right')
+      .forEach(el => observer.observe(el));
+
+    const barberObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        } else {
+          entry.target.classList.remove('is-visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.barber-block')
+      .forEach(block => barberObserver.observe(block));
+
+    return () => {
+      observer.disconnect();
+      barberObserver.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const cleanup = setupScrollReveal();
+    return cleanup;
+  }, [setupScrollReveal]);
 
 
-  // Auto-advance testimonials
 
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Blade & Co. Barbershop",
-    "image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2000&auto=format&fit=crop",
+    "image": "/images/cover.png",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "123 Precision Way",
@@ -106,7 +144,7 @@ export function Home() {
       <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <motion.img
-            src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2000&auto=format&fit=crop"
+            src="/images/cover.png"
             alt="Blade & Co Interior"
             className="w-full h-full object-cover"
             animate={{ scale: [1.0, 1.08, 1.0] }}
@@ -191,7 +229,7 @@ export function Home() {
       </section>
 
       {/* SECTION 2: ABOUT SNIPPET */}
-      <section className="py-32 px-6 bg-background">
+      <section className="py-10 md:py-20 px-6 bg-background">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -199,7 +237,7 @@ export function Home() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-primary uppercase tracking-[0.4em] font-bold text-xs mb-4 block">Legacy</span>
+            <span className="text-primary uppercase tracking-[0.4em] font-bold text-sm md:text-base mb-4 block">Legacy</span>
 
             <motion.div className="overflow-hidden">
               <motion.h2
@@ -243,7 +281,7 @@ export function Home() {
             className="relative rounded-[2rem] overflow-hidden shadow-3xl aspect-[4/5] lg:aspect-auto lg:h-[600px]"
           >
             <img
-              src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2000&auto=format&fit=crop"
+              src="/images/cover.png"
               alt="The Shop Atmosphere"
               className="w-full h-full object-cover"
             />
@@ -253,7 +291,7 @@ export function Home() {
       </section>
 
       {/* SECTION 3: SERVICES PREVIEW */}
-      <section className="py-32 px-6 bg-surface-100 relative">
+      <section className="py-10 md:py-20 px-6 bg-surface-100 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20 flex flex-col items-center">
             <motion.div className="overflow-hidden pb-2">
@@ -296,7 +334,7 @@ export function Home() {
                 <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
                   <Scissors size={100} className="rotate-45" />
                 </div>
-                <div className="w-12 h-12 glass rounded-xl flex items-center justify-center text-primary mb-8 group-hover:scale-125 group-hover:rotate-15 transition-all duration-300">
+                <div className="w-12 h-12 glass rounded-xl flex items-center justify-center text-primary mb-8 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300">
                   {svc.category === 'Haircuts' ? <Zap size={24} /> : <Shield size={24} />}
                 </div>
                 <h3 className="text-2xl font-bold mb-4 font-heading relative z-10">{svc.name}</h3>
@@ -323,249 +361,223 @@ export function Home() {
       </section>
 
       {/* SECTION 4: GALLERY PREVIEW */}
-      <section className="py-32 px-6">
+      <section className="py-10 md:py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-10 mb-20">
-            <div>
-              <span className="text-primary uppercase tracking-[0.4em] font-bold text-xs mb-4 block">Lookbook</span>
-              <motion.div className="overflow-hidden pb-2">
-                <motion.h2
-                  initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
-                  whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="text-4xl md:text-6xl font-heading font-black"
-                >
-                  OUR WORK
-                </motion.h2>
-              </motion.div>
-              <motion.div
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-                className="w-20 h-1 bg-primary mt-6 origin-left"
-              />
-            </div>
-            <Link to="/gallery" className="btn-outline">
-              Explore Full Gallery <ArrowRight className="ml-2 inline" size={18} />
-            </Link>
+          <div className="text-center mb-20">
+            <h2
+              className="text-4xl md:text-6xl font-heading font-black fade-up"
+              style={{ transitionDelay: '0s' }}
+            >
+              A Legacy of Style
+            </h2>
+            <p
+              className="text-text-muted text-sm md:text-base mt-6 max-w-2xl mx-auto fade-up"
+              style={{ transitionDelay: '0.2s' }}
+            >
+              A visual journey through our finest cuts and premium atmosphere.
+            </p>
           </div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={{
-              hidden: { opacity: 0 },
-              visible: { opacity: 1, transition: { staggerChildren: 0.08 } }
-            }}
-            className="grid grid-cols-2 md:grid-cols-3 gap-6 auto-rows-[250px] md:auto-rows-[350px]"
-          >
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
             {GALLERY_IMAGES.slice(0, 6).map((img, i) => {
-              const spans = [
-                'col-span-2 row-span-2',
-                '',
-                'row-span-1',
-                '',
-                '',
-                'col-span-1 md:col-span-2'
-              ];
-              return (
-                <motion.div
-                  key={img.id}
-                  variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
-                  className={cn("group relative overflow-hidden rounded-3xl", spans[i])}
-                >
-                  <motion.img
-                    src={img.url}
-                    alt={img.alt}
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.08 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                  />
+              const isAnimated = [0, 2, 4].includes(i);
+              const delay = `${(i + 1) * 0.1}s`;
+
+              if (isAnimated) {
+                return (
                   <motion.div
-                    className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center pointer-events-none"
-                    initial={{ clipPath: "inset(100% 0 0 0)" }}
-                    whileHover={{ clipPath: "inset(0% 0 0 0)" }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    key={img.id}
+                    className="break-inside-avoid relative overflow-hidden rounded-2xl group fade-up cursor-pointer"
+                    style={{ transitionDelay: delay }}
                   >
+                    <motion.img
+                      src={img.url}
+                      alt={img.alt}
+                      className="w-full h-auto object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-[1.06]"
+                    />
+
+                    {/* Animated Overlay */}
                     <motion.div
-                      className="text-center translate-y-8 group-hover:translate-y-0 transition-transform duration-500 delay-100"
+                      initial={{ clipPath: "inset(100% 0 0 0)" }}
+                      whileHover={{ clipPath: "inset(0% 0 0 0)" }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent flex flex-col justify-end p-6"
                     >
-                      <span className="text-primary font-bold tracking-widest uppercase text-xs mb-2 block">{img.category}</span>
-                      <span className="text-white font-heading text-xl md:text-2xl">{img.barber}</span>
+                      <motion.div
+                        initial={{ y: 20, opacity: 0 }}
+                        whileHover={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.4, delay: 0.1 }}
+                      >
+                        <p className="text-primary text-[10px] font-bold tracking-[0.3em] uppercase mb-1">
+                          {img.category}
+                        </p>
+                        <h3 className="text-2xl font-heading font-bold text-white italic">
+                          {img.barber}
+                        </h3>
+                      </motion.div>
                     </motion.div>
                   </motion.div>
-                </motion.div>
+                );
+              }
+
+              return (
+                <div
+                  key={img.id}
+                  className="break-inside-avoid relative overflow-hidden rounded-2xl group fade-up cursor-pointer"
+                  style={{ transitionDelay: delay }}
+                >
+                  <img
+                    src={img.url}
+                    alt={img.alt}
+                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.08]"
+                  />
+                  <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition-opacity duration-500" />
+                </div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* SECTION 5: TEAM PREVIEW */}
-      <section className="py-32 px-6 bg-surface-200">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-24 flex flex-col items-center">
-            <motion.div className="overflow-hidden pb-2">
-              <motion.h2
-                initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
-                whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="text-4xl md:text-6xl font-heading font-black mb-6 italic text-gradient-gold"
-              >
-                MEET THE BARBERS
-              </motion.h2>
-            </motion.div>
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="w-32 h-[1px] bg-[#C9A84C] mx-auto origin-center"
-            />
-          </div>
+      {/* SECTION 5: TEAM */}
+      <section className="py-10 md:py-20 bg-[#0A0A0A] overflow-hidden">
+        <div className="text-center mb-16 px-6 fade-up">
+          <h2 className="text-4xl md:text-6xl font-heading font-black italic text-gradient-gold">
+            OUR MASTER TEAM
+          </h2>
+          <div className="w-32 h-[1px] bg-[#C9A84C] mt-6 mx-auto fade-up" style={{ transitionDelay: '0.15s' }} />
+        </div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={{
-              hidden: { opacity: 0 },
-              visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
-            }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-20"
-          >
-            {BARBERS.map((barber) => (
-              <motion.div
-                key={barber.id}
-                variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}
-                whileHover={{ y: -10 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="group glass-card p-6 border-b-4 border-b-transparent hover:border-b-primary transition-colors duration-500 flex flex-col relative overflow-hidden"
-              >
-                <div className="aspect-[3/4] rounded-2xl overflow-hidden mb-6 shadow-2xl relative">
-                  {/* Front Image */}
-                  <img src={barber.image} alt={barber.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700" />
-                  {/* Second/Hover Image */}
-                  <motion.img
-                    src={barber.coverImage}
-                    alt={`${barber.name} working`}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    initial={{ x: "100%" }}
-                    whileHover={{ x: "0%" }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
+        <div className="max-w-6xl mx-auto px-6 md:px-12 flex flex-col gap-12">
+          {BARBERS.map((barber) => (
+            <div key={barber.id} className="w-full barber-block">
+              <div className="flex flex-col md:flex-row min-h-[520px]">
+                {/* LEFT: B&W Photo */}
+                <div className="w-full md:w-[42%] relative overflow-hidden bg-[#000000] photo-side">
+                  <img
+                    src={barber.image}
+                    alt={barber.name}
+                    className="w-full h-[350px] md:h-full object-cover grayscale"
                   />
                 </div>
-
-                <div className="relative overflow-hidden h-8 mb-1">
-                  <motion.h3
-                    className="text-xl font-bold font-heading absolute bottom-0 left-0"
-                    initial={{ y: 20, opacity: 0 }}
-                    whileHover={{ y: 0, opacity: 1 }}
-                    animate={{ y: 0, opacity: 1 }} // It shows by default anyway, but the prompt says "name fades up from bottom on hover". If it fades up on hover, it shouldn't be there normally? Wait, if it fades up on hover, maybe the name is only visible on hover? No, usually it's visible. Let's make it visible by default but re-animate on hover or just keep it visible. Let's add a sub-div for specialties.
-                  >
+                {/* MIDDLE: Info Card */}
+                <div className="w-full md:w-[38%] bg-[#F5F0E8] p-8 md:p-12 flex flex-col justify-center content-side">
+                  <h3 className="text-2xl md:text-3xl font-heading font-black text-[#C9A84C] uppercase tracking-wide mb-2">
                     {barber.name}
-                  </motion.h3>
-                </div>
-
-                <div className="overflow-hidden flex flex-wrap gap-2 mb-4 h-6">
-                  {barber.specialties.map((spec, i) => (
-                    <motion.span
-                      key={spec}
-                      className="text-[10px] uppercase tracking-widest text-primary font-bold bg-primary/5 px-2 py-1 rounded inline-block origin-left"
-                      initial={{ x: -20, opacity: 0 }}
-                      whileHover={{ x: 0, opacity: 1 }}
-                      transition={{ delay: i * 0.1, duration: 0.3 }}
-                    // Make them always visible, but on hover they slide slightly? 
-                    // "Specialty tags slide in from left one by one on hover" -> means they are hidden until hover?
-                    // I will hide them initially in the group, and show on hover.
+                  </h3>
+                  <p className="text-xs uppercase tracking-[0.2em] text-[#1A1A1A] font-bold mb-6">
+                    {barber.role}
+                  </p>
+                  <p className="text-[#444] text-sm leading-relaxed mb-8">
+                    {barber.bio}
+                  </p>
+                  <div className="flex flex-col gap-3 max-w-[220px]">
+                    <a
+                      href="https://wa.me/1234567890"
+                      className="bg-[#1A1A1A] text-white text-[10px] font-bold uppercase tracking-widest px-6 py-3 text-center hover:bg-black transition-colors"
                     >
-                      {spec}
-                    </motion.span>
-                  ))}
-                  <span className="text-[10px] uppercase tracking-widest text-primary font-bold bg-primary/5 px-2 py-1 rounded inline-block group-hover:hidden transition-all duration-300">
-                    {barber.specialties[0]}
-                  </span>
+                      Book on WhatsApp
+                    </a>
+                    <Link
+                      to={`/barber/${barber.id}`}
+                      className="border-2 border-[#1A1A1A] text-[#1A1A1A] text-[10px] font-bold uppercase tracking-widest px-6 py-3 text-center hover:bg-[#1A1A1A] hover:text-white transition-colors"
+                    >
+                      Profile
+                    </Link>
+                  </div>
                 </div>
-
-                <div className="flex text-primary gap-1 mb-8 opacity-60">
-                  <Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" />
+                {/* FAR RIGHT: Decorative Chevrons */}
+                <div className="hidden md:flex w-[20%] bg-[#000000] items-center justify-center gap-4 chevron-side">
+                  <svg width="40" height="160" viewBox="0 0 30 120" fill="none"><path d="M0 0 L30 60 L0 120" stroke="rgba(255,255,255,0.8)" strokeWidth="4" fill="none" /></svg>
+                  <svg width="40" height="160" viewBox="0 0 30 120" fill="none"><path d="M0 0 L30 60 L0 120" stroke="rgba(255,255,255,0.5)" strokeWidth="4" fill="none" /></svg>
+                  <svg width="40" height="160" viewBox="0 0 30 120" fill="none"><path d="M0 0 L30 60 L0 120" stroke="rgba(255,255,255,0.3)" strokeWidth="4" fill="none" /></svg>
                 </div>
-
-                <div className="mt-auto grid grid-cols-2 gap-4 pt-4 overflow-hidden">
-                  <motion.div
-                    initial={{ y: 50, opacity: 0 }}
-                    whileHover={{ y: 0, opacity: 1 }}
-                    className="col-span-1"
-                  >
-                    <Link to="/team" className="block w-full text-[10px] uppercase tracking-widest text-text-muted hover:text-white border border-white/10 py-3 text-center rounded transition-colors font-bold">Profile</Link>
-                  </motion.div>
-                  <motion.div
-                    initial={{ y: 50, opacity: 0 }}
-                    whileHover={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.05 }}
-                    className="col-span-1"
-                  >
-                    <Link to={`/barber/${barber.id}`} className="block w-full text-[10px] uppercase tracking-widest bg-white/5 hover:bg-primary hover:text-background py-3 text-center rounded transition-all font-bold">Portfolio</Link>
-                  </motion.div>
-                </div>
-
-                {/* Default buttons visible when not hovering, we absolutely position them and hide on hover, or we just animate the container. Actually, CSS is easier for this. */}
-                <div className="absolute bottom-6 left-6 right-6 grid grid-cols-2 gap-4 group-hover:opacity-0 transition-opacity duration-300 pointer-events-none">
-                  <div className="text-[10px] uppercase tracking-widest text-text-muted border border-white/10 py-3 text-center rounded font-bold">Profile</div>
-                  <div className="text-[10px] uppercase tracking-widest bg-white/5 py-3 text-center rounded font-bold">Portfolio</div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <div className="text-center">
-            <Link to="/team" className="btn-primary">
-              Meet Full Team <ArrowRight className="ml-2 inline" size={18} />
-            </Link>
-          </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* SECTION 6: TESTIMONIALS */}
-      <section className="py-32 px-6 bg-[#0A0A0A] relative overflow-hidden">
+      {/* SECTION 6: REVIEWS */}
+      <section className="py-10 md:py-20 px-6 bg-[#0A0A0A] relative overflow-hidden">
         <div className="absolute top-0 right-0 p-20 opacity-[0.02]">
           <Scissors size={400} />
         </div>
 
-        <div className="max-w-7xl mx-auto relative z-10 text-center">
-          <motion.div className="overflow-hidden pb-2 mb-16">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-20">
             <motion.h2
               initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
               whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-4xl md:text-6xl font-heading font-black italic"
+              className="text-4xl md:text-6xl font-heading font-black italic mb-6"
             >
               WHAT CLIENTS SAY
             </motion.h2>
-          </motion.div>
+            <p className="text-text-muted uppercase tracking-[0.4em] text-xs">
+              Drag the card to shuffle
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 text-left max-w-5xl mx-auto">
-            {TESTIMONIALS.map((testimonial, i) => (
-              <ReviewCard
-                key={testimonial.id}
-                name={testimonial.name}
-                review={testimonial.content}
-                rating={testimonial.rating}
-                date={testimonial.date}
-                delay={i * 0.2}
-              />
-            ))}
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-20">
+
+            {/* LEFT: Shuffle Cards */}
+            <div className="w-full lg:w-1/2 flex items-center justify-center relative">
+              <ShuffleCards testimonials={[
+                {
+                  id: 1,
+                  testimonial: "The atmosphere at Blade & Co. is unlike anything in London. Marcus understood exactly what I wanted and delivered perfection.",
+                  author: "James Harrison — Verified Client"
+                },
+                {
+                  id: 2,
+                  testimonial: "Best straight razor shave I have ever had. The hot towel ritual is incredibly relaxing. I leave feeling like a new man every time.",
+                  author: "Robert Miller — Verified Client"
+                },
+                {
+                  id: 3,
+                  testimonial: "Elias gave me the cleanest fade of my life. The attention to detail is second to none. Truly a cut above the rest.",
+                  author: "Thomas Webb — Verified Client"
+                }
+              ]} />
+            </div>
+
+            {/* RIGHT: Stats */}
+            <div className="w-full lg:w-1/2 space-y-10 text-center lg:text-left">
+              <div>
+                <p className="text-6xl font-black font-heading text-primary">
+                  4.9
+                </p>
+                <p className="text-xs uppercase tracking-widest 
+                  text-text-muted mt-2">Average Rating</p>
+              </div>
+              <div className="w-px h-16 bg-white/10 mx-auto 
+                lg:mx-0 hidden lg:block" />
+              <div>
+                <p className="text-6xl font-black font-heading text-white">
+                  1000+
+                </p>
+                <p className="text-xs uppercase tracking-widest 
+                  text-text-muted mt-2">Verified Reviews</p>
+              </div>
+              <div className="w-px h-16 bg-white/10 mx-auto 
+                lg:mx-0 hidden lg:block" />
+              <div>
+                <p className="text-4xl font-black font-heading 
+                  text-primary italic">
+                  "Drag to shuffle"
+                </p>
+                <p className="text-xs uppercase tracking-widest 
+                  text-text-muted mt-2">Interactive Reviews</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* SECTION 7: CONTACT SNIPPET */}
-      <section className="py-32 px-6">
+      <section className="py-10 md:py-20 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -617,11 +629,11 @@ export function Home() {
                 </div>
               </div>
 
-              <div className="flex gap-6">
-                <Link to="/contact" className="btn-primary text-xs flex-grow md:flex-grow-0">
+              <div className="flex flex-col md:flex-row gap-6">
+                <Link to="/contact" className="btn-primary text-xs w-full md:w-auto text-center">
                   Get Full Directions
                 </Link>
-                <Link to="/contact" className="btn-outline text-xs flex-grow md:flex-grow-0">
+                <Link to="/contact" className="btn-outline text-xs w-full md:w-auto text-center">
                   Contact Us
                 </Link>
               </div>
@@ -646,6 +658,62 @@ export function Home() {
           </motion.div>
         </div>
       </section>
+      {/* Antigravity Scroll Reveal Styles */}
+      <style>{`
+        .fade-up {
+          opacity: 0;
+          transform: translateY(70px);
+          transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+        .fade-up.is-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .slide-left {
+          opacity: 0;
+          transform: translateX(-60px);
+          transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+        .slide-left.is-visible {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .slide-right {
+          opacity: 0;
+          transform: translateX(60px);
+          transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+        .slide-right.is-visible {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        .barber-block .photo-side {
+          opacity: 0;
+          transform: translateX(-80px);
+          transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+        .barber-block .content-side {
+          opacity: 0;
+          transform: translateX(80px);
+          transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+        .barber-block .chevron-side {
+          opacity: 0;
+          transition: opacity 0.9s ease 0.3s;
+        }
+        .barber-block.is-visible .photo-side {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .barber-block.is-visible .content-side {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .barber-block.is-visible .chevron-side {
+          opacity: 1;
+        }
+      `}</style>
     </div>
   );
 }

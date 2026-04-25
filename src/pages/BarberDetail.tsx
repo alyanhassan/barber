@@ -124,7 +124,7 @@ export function BarberDetail() {
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-20">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-32 md:pt-40">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -156,7 +156,7 @@ export function BarberDetail() {
                 <span className="bg-primary text-background text-[10px] font-black uppercase tracking-[0.3em] px-4 py-1.5 rounded-full mb-4 inline-block shadow-xl">
                   {barber.role}
                 </span>
-                <h1 className="text-5xl md:text-8xl font-black font-heading mb-6 italic tracking-tighter leading-none flex flex-wrap justify-center md:justify-start">
+                <h1 className="text-4xl md:text-8xl font-black font-heading mb-6 italic tracking-tighter leading-tight md:leading-none flex flex-wrap justify-center md:justify-start">
                   {barber.name.split('').map((char, index) => (
                     <motion.span
                       key={index}
@@ -168,7 +168,7 @@ export function BarberDetail() {
                     </motion.span>
                   ))}
                 </h1>
-                <div className="flex flex-wrap justify-center md:justify-start gap-3">
+                <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8">
                   {barber.specialties.map((spec, index) => (
                     <motion.span
                       key={spec}
@@ -180,6 +180,11 @@ export function BarberDetail() {
                       {spec}
                     </motion.span>
                   ))}
+                </div>
+                <div className="flex justify-center md:justify-start">
+                  <Link to="/contact" className="btn-primary px-8 py-3 text-xs w-full md:w-auto text-center">
+                    Book {barber.name.split(' ')[0]} Now
+                  </Link>
                 </div>
               </div>
             </div>
@@ -199,7 +204,7 @@ export function BarberDetail() {
       </section>
 
       {/* SECTION 2: ABOUT & STORY */}
-      <section className="py-32 px-6">
+      <section className="py-10 md:py-20 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -244,7 +249,7 @@ export function BarberDetail() {
       </section>
 
       {/* SECTION 3: SPECIALTIES & SKILLS */}
-      <section className="py-32 px-6 bg-surface-100">
+      <section className="py-10 md:py-20 px-6 bg-surface-100">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24">
           <div>
             <h3 className="text-xl font-heading font-black italic mb-10 uppercase tracking-widest text-primary">SPECIALTIES</h3>
@@ -272,7 +277,7 @@ export function BarberDetail() {
       </section>
 
       {/* SECTION 4: CAREER TIMELINE */}
-      <section className="py-32 px-6">
+      <section className="py-10 md:py-20 px-6">
         <div className="max-w-4xl mx-auto text-center mb-24">
           <h2 className="text-4xl md:text-6xl font-heading font-black italic mb-6 tracking-tighter uppercase">CAREER JOURNEY</h2>
           <div className="w-20 h-1 bg-primary mx-auto" />
@@ -292,7 +297,7 @@ export function BarberDetail() {
               >
                 <div className="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full shadow-[0_0_20px_rgba(201,168,76,0.6)] z-10 -translate-x-1/2 border-4 border-background" />
 
-                <div className="w-full md:w-1/2 text-center md:text-left px-12">
+                <div className="w-full md:w-1/2 text-left pl-12 md:px-12">
                   <div className={i % 2 === 0 ? 'md:text-left' : 'md:text-right'}>
                     <p className="text-primary font-black text-3xl font-heading mb-2">{item.year}</p>
                     <h4 className="text-xl font-bold uppercase tracking-widest mb-1">{item.role}</h4>
@@ -310,7 +315,7 @@ export function BarberDetail() {
       </section>
 
       {/* SECTION 5: PERSONAL GALLERY */}
-      <section className="py-32 px-6 bg-surface-100">
+      <section className="py-10 md:py-20 px-6 bg-surface-100">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-heading font-black italic mb-6 tracking-tighter uppercase">{barber.name.split(' ')[0]}'S WORK</h2>
@@ -339,7 +344,7 @@ export function BarberDetail() {
       </section>
 
       {/* SECTION 6: CLIENT REVIEWS */}
-      <section className="py-32 px-6">
+      <section className="py-10 md:py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-24 flex flex-col items-center">
             <motion.div className="overflow-hidden pb-2 mb-6">
@@ -383,11 +388,11 @@ export function BarberDetail() {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="max-w-7xl mx-auto relative overflow-hidden rounded-[4rem] bg-gradient-to-br from-primary via-primary/80 to-primary p-20 md:p-32 text-center shadow-3xl text-background group"
+          className="max-w-7xl mx-auto relative overflow-hidden rounded-3xl md:rounded-[4rem] bg-gradient-to-br from-primary via-primary/80 to-primary p-8 md:p-32 text-center shadow-3xl text-background group"
         >
           <div className="absolute top-0 left-0 w-full h-full bg-white/5 animate-pulse" />
           <div className="relative z-10">
-            <h2 className="text-4xl md:text-8xl font-heading font-black mb-10 italic uppercase tracking-tighter leading-none">
+            <h2 className="text-3xl md:text-8xl font-heading font-black mb-6 md:mb-10 italic uppercase tracking-tighter leading-tight md:leading-none">
               READY TO SIT IN <br /> {barber.name.split(' ')[0]}'S CHAIR?
             </h2>
             <div className="flex flex-col md:flex-row items-center justify-center gap-8">
@@ -408,7 +413,7 @@ export function BarberDetail() {
       </section>
 
       {/* SECTION 8: OTHER BARBERS */}
-      <section className="py-32 px-6 border-t border-white/5">
+      <section className="py-10 md:py-20 px-6 border-t border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-20">
             <h2 className="text-3xl font-heading font-black italic uppercase italic tracking-tighter">MEET THE REST OF THE TEAM</h2>

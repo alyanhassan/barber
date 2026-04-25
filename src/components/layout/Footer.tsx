@@ -105,11 +105,11 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
-            <p className="text-xs text-text-muted uppercase tracking-[0.2em]">
+            <p className="text-sm text-text-muted uppercase tracking-[0.2em]">
               © 2024 Blade & Co. Barbershop
             </p>
-            <span className="hidden md:block w-1 h-1 rounded-full bg-white/20" />
-            <p className="text-[10px] text-primary uppercase tracking-[0.4em] font-bold">
+            <span className="hidden md:block w-1.5 h-1.5 rounded-full bg-white/40" />
+            <p className="text-xs text-primary uppercase tracking-[0.4em] font-bold">
               Crafted with precision
             </p>
           </div>

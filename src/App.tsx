@@ -58,49 +58,6 @@ const ScrollBar = () => {
   );
 };
 
-// Back to Top Button
-const BackToTopButton = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 400) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-    window.addEventListener('scroll', toggleVisibility, { passive: true });
-    return () => window.removeEventListener('scroll', toggleVisibility);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.button
-          initial={{ opacity: 0, scale: 0.8, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.8, y: 20 }}
-          onClick={scrollToTop}
-          className="fixed bottom-10 right-10 z-[60] w-14 h-14 glass rounded-2xl flex items-center justify-center text-primary border border-primary/20 hover:border-primary shadow-3xl group relative overflow-hidden"
-          aria-label="Back to Top"
-        >
-          {/* Spinning gold ring */}
-          <motion.div
-            className="absolute inset-0 border-2 border-primary border-t-transparent border-l-transparent rounded-2xl"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          />
-          <ArrowUp className="group-hover:-translate-y-1 transition-transform relative z-10" />
-        </motion.button>
-      )}
-    </AnimatePresence>
-  );
-};
 
 function App() {
   const location = useLocation();
@@ -145,7 +102,6 @@ function App() {
         </main>
 
         <Footer />
-        <BackToTopButton />
       </div>
     </HelmetProvider>
   );

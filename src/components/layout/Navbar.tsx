@@ -155,7 +155,7 @@ export function Navbar() {
               className="mt-auto mb-20 space-y-6"
             >
               <Link to="/contact" className="btn-primary w-full py-6 text-xl">
-                Book Assignment
+                Book Appointment
               </Link>
               <div className="flex flex-col gap-2">
                 <p className="text-[10px] uppercase tracking-[0.5em] text-text-muted">Studio Hours</p>
