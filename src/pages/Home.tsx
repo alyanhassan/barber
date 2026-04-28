@@ -1,26 +1,17 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { useInView, useScroll, useTransform } from 'framer-motion';
+import { useInView } from 'framer-motion';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   ChevronDown,
   ArrowRight,
-  Star,
   MapPin,
   Phone,
   Clock,
   Scissors,
   Zap,
   Shield,
-  ChevronLeft,
-  ChevronRight,
 } from 'lucide-react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
 import { Meta } from '../components/seo/Meta';
 import { FadeUp } from '../components/ui/FadeUp';
 import { ShuffleCards } from '../components/ui/TestimonialCards';
@@ -29,7 +20,6 @@ import {
   SERVICES,
   GALLERY_IMAGES,
   SALON_INFO,
-  TESTIMONIALS
 } from '../data';
 
 // --- CountUp Logic ---

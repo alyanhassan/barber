@@ -58,12 +58,10 @@ export function Gallery() {
 
   const openLightbox = (index: number) => {
     setSelectedImageIndex(index);
-    document.body.style.overflow = 'hidden';
   };
 
   const closeLightbox = useCallback(() => {
     setSelectedImageIndex(null);
-    document.body.style.overflow = 'unset';
   }, []);
 
   const nextImage = useCallback(() => {
@@ -87,7 +85,15 @@ export function Gallery() {
       if (e.key === 'ArrowLeft') prevImage();
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    if (selectedImageIndex !== null) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+        window.removeEventListener('keydown', handleKeyDown)
+        document.body.style.overflow = 'unset';
+    };
   }, [selectedImageIndex, closeLightbox, nextImage, prevImage]);
 
   const gallerySchema = {

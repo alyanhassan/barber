@@ -23,9 +23,14 @@ export function Navbar() {
 
   // Close mobile menu on route change
   useEffect(() => {
-    setIsMobileMenuOpen(false);
+    // Only update body overflow
     document.body.style.overflow = 'unset';
   }, [location]);
+
+  // Keep state sync separate from effect to avoid cascade render
+  if (isMobileMenuOpen && document.body.style.overflow === 'unset') {
+    setIsMobileMenuOpen(false);
+  }
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);

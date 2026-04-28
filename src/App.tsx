@@ -1,10 +1,10 @@
-import { Suspense, lazy, useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import { HelmetProvider } from 'react-helmet-async';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
-import { Loader2, ArrowUp } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { CustomCursor } from './components/ui/CustomCursor';
 
 // Lazy Loaded Pages

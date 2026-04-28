@@ -19,9 +19,8 @@ export function CustomCursor() {
     const checkDesktop = () => window.matchMedia('(min-width: 768px) and (pointer: fine)').matches;
     const checkMotion = () => !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
-    setIsDesktop(checkDesktop() && checkMotion());
-
     const handleResize = () => setIsDesktop(checkDesktop() && checkMotion());
+    handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);

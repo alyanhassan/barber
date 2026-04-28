@@ -13,7 +13,6 @@ export function TestimonialCard({
   handleShuffle, 
   testimonial, 
   position, 
-  id, 
   author 
 }: TestimonialCardProps) {
   const dragRef = React.useRef(0);

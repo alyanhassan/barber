@@ -16,7 +16,8 @@ import { BARBERS, TESTIMONIALS } from '../data';
 import { ReviewCard } from '../components/ui/ReviewCard';
 
 // --- CountUp Component ---
-const CountUpStat = ({ value, suffix = "", label, icon: Icon }: { value: number; suffix?: string; label: string; icon: any }) => {
+import type { ElementType } from 'react';
+const CountUpStat = ({ value, suffix = "", label, icon: Icon }: { value: number; suffix?: string; label: string; icon: ElementType }) => {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
