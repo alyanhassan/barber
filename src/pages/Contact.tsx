@@ -15,6 +15,7 @@ import {
   X
 } from 'lucide-react';
 import { Meta } from '../components/seo/Meta';
+import { supabase } from '../lib/supabase';
 import { SALON_INFO, FAQS, SERVICES } from '../data';
 
 interface FormState {
@@ -67,9 +68,29 @@ export function Contact() {
     if (!validate()) return;
 
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    const { error } = await supabase
+      .from('bookings')
+      .insert([
+        {
+          full_name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          preferred_date: formData.date,
+          message: formData.message,
+          status: 'pending'
+        }
+      ]);
+
     setIsSubmitting(false);
+
+    if (error) {
+      console.error('Error saving booking:', error);
+      alert('Something went wrong. Please try again.');
+      return;
+    }
+
     setIsSuccess(true);
   };
 
@@ -132,7 +153,7 @@ export function Contact() {
             <ChevronRight size={12} />
             <span className="text-primary">Contact</span>
           </nav>
-          <motion.h1 
+          <motion.h1
             initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
             animate={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -151,7 +172,7 @@ export function Contact() {
           {/* LEFT: FORM */}
           <div>
             <motion.div className="overflow-hidden pb-2 mb-12">
-              <motion.h2 
+              <motion.h2
                 initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
                 whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -289,7 +310,7 @@ export function Contact() {
           <div className="space-y-16">
             <div className="space-y-10">
               <motion.div className="overflow-hidden pb-2">
-                <motion.h2 
+                <motion.h2
                   initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
                   whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
@@ -332,7 +353,7 @@ export function Contact() {
 
             <div className="space-y-10">
               <motion.div className="overflow-hidden pb-2">
-                <motion.h2 
+                <motion.h2
                   initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
                   whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
@@ -371,7 +392,7 @@ export function Contact() {
 
       {/* MAP SECTION */}
       <section id="map" className="px-6 py-10 md:py-20 bg-surface-100">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -397,7 +418,7 @@ export function Contact() {
             <p className="text-sm text-text-primary/80 leading-relaxed font-light">
               123 Precision Way, South Bank, London SE1 7PB
             </p>
-        </div>
+          </div>
         </motion.div>
       </section>
 
@@ -408,7 +429,7 @@ export function Contact() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-24 flex flex-col items-center">
             <motion.div className="overflow-hidden pb-2 mb-6">
-              <motion.h2 
+              <motion.h2
                 initial={{ clipPath: "inset(0 0 100% 0)", y: 50 }}
                 whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -418,12 +439,12 @@ export function Contact() {
                 FREQUENTLY ASKED <span className="text-gradient-gold text-white">QUESTIONS</span>
               </motion.h2>
             </motion.div>
-            <motion.div 
+            <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="w-24 h-1 bg-primary mx-auto origin-center" 
+              className="w-24 h-1 bg-primary mx-auto origin-center"
             />
           </div>
 

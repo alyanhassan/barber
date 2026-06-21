@@ -6,6 +6,7 @@ import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { Loader2 } from 'lucide-react';
 import { CustomCursor } from './components/ui/CustomCursor';
+import { ProtectedRoute } from './components/admin/ProtectedRoute';
 
 // Lazy Loaded Pages
 const Home = lazy(() => import('./pages/Home'));
@@ -15,6 +16,10 @@ const Team = lazy(() => import('./pages/Team'));
 const BarberDetail = lazy(() => import('./pages/BarberDetail'));
 const Contact = lazy(() => import('./pages/Contact'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+
+// Admin Pages
+const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 
 // Loading Component
 const PageLoader = () => (
@@ -61,6 +66,7 @@ const ScrollBar = () => {
 
 function App() {
   const location = useLocation();
+  const isAdmin = location.pathname.startsWith('/admin');
 
   return (
     <HelmetProvider>
@@ -68,7 +74,7 @@ function App() {
         <CustomCursor />
         <ScrollBar />
         <ScrollToTop />
-        <Navbar />
+        {!isAdmin && <Navbar />}
 
         <main id="main-content" className="outline-none" tabIndex={-1}>
           <AnimatePresence mode="wait">
@@ -94,6 +100,18 @@ function App() {
                   <Route path="/team" element={<Team />} />
                   <Route path="/barber/:id" element={<BarberDetail />} />
                   <Route path="/contact" element={<Contact />} />
+                  
+                  {/* Admin Routes */}
+                  <Route path="/admin/login" element={<AdminLogin />} />
+                  <Route 
+                    path="/admin/dashboard" 
+                    element={
+                      <ProtectedRoute>
+                        <AdminDashboard />
+                      </ProtectedRoute>
+                    } 
+                  />
+
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </motion.div>
@@ -101,7 +119,7 @@ function App() {
           </AnimatePresence>
         </main>
 
-        <Footer />
+        {!isAdmin && <Footer />}
       </div>
     </HelmetProvider>
   );
